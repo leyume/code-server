@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  qode:
+    container_name: coder
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #image: leyume/code-server
+    environment:
+      - TZ=Africa/Lagos
+      - EUID=1001
+      - EGID=1001
+      - EDOCK=/home/docker
+      - EHOME=/home/docker/coder/vscode
+      - SUDOPASS=xxxxxx
+      - VERSION=4.7.0
+    volumes:
+      - ./vscode:/home/docker/coder/vscode
+      - /var/run/docker.sock:/var/run/docker.sock 
+    #deploy:
+    #  resources:
+    #    limits:
+    #      cpus: '0.95'
+    #      memory: 1024M
+    ports:
+      - 11000:8080
+      - 11001:11001
+    restart: unless-stopped
+    #storage_opt:
+      #size: '2G'
